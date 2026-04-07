@@ -16,8 +16,4 @@ public class OrderService {
         log.info("Order successfully save: id={}", order.orderId());
     }
 
-    public void clearKafka(){
-        orderKafkaProducer.clearKafka();
-        log.info("Kafka default producer factory was successfully clear");
-    }
 }

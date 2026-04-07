@@ -12,14 +12,11 @@ import org.springframework.stereotype.Service;
 public class OrderKafkaProducer {
 
     private final KafkaTemplate<String, Order> kafkaTemplate;
-    private final DefaultKafkaProducerFactory<String, Order> kafkaDefaultTemplate;
+
 
     public void sendOrderToKafka(Order order){
         kafkaTemplate.send("orders", order.orderId(), order);
         log.info("order send to kafka: id={}", order.orderId());
     }
 
-    public void clearKafka(){
-        kafkaDefaultTemplate.destroy();
-    }
 }
