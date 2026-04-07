@@ -2,6 +2,7 @@ package katsapa.service.orderservice;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +12,14 @@ import org.springframework.stereotype.Service;
 public class OrderKafkaProducer {
 
     private final KafkaTemplate<String, Order> kafkaTemplate;
+    private final DefaultKafkaProducerFactory<String, Order> kafkaDefaultTemplate;
 
     public void sendOrderToKafka(Order order){
-        kafkaTemplate.send("orders", order);
+        kafkaTemplate.send("orders", order.orderId(), order);
         log.info("order send to kafka: id={}", order.orderId());
+    }
+
+    public void clearKafka(){
+        kafkaDefaultTemplate.destroy();
     }
 }

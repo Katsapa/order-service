@@ -13,7 +13,11 @@ public class OrderService {
 
     public void saveOrder(Order order) {
         orderKafkaProducer.sendOrderToKafka(order);
-
         log.info("Order successfully save: id={}", order.orderId());
+    }
+
+    public void clearKafka(){
+        orderKafkaProducer.clearKafka();
+        log.info("Kafka default producer factory was successfully clear");
     }
 }

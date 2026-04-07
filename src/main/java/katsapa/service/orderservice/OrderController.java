@@ -21,7 +21,7 @@ public class OrderController {
     private final AtomicInteger orderIdCounter = new AtomicInteger();
 
 
-    @PostMapping
+    @PostMapping("/create")
     public void createOrder(@RequestBody Order order){
         log.info("create order called: order={}", order);
         int orderId = orderIdCounter.incrementAndGet();
@@ -35,5 +35,10 @@ public class OrderController {
         );
 
         service.saveOrder(orderToSave);
+    }
+
+    @PostMapping("/clearKafka")
+    public void clearOrdersTopic(){
+        service.clearKafka();
     }
 }
