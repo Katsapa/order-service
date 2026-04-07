@@ -37,4 +37,8 @@ public class OrderController {
         service.saveOrder(orderToSave);
     }
 
+    @PostMapping("/clearKafka")
+    public void clearOrdersTopic(){
+        service.clearKafka();
+    }
 }
